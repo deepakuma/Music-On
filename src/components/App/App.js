@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 
 import Playlist from '../Playlist/Playlist';
@@ -53,18 +53,18 @@ class App extends React.Component {
     this.setState({ SearchResult: tracks });
   }
 
-  doThese(track){
+  doThese(track) {
     this.addTrack(track);
     this.removeTrackSearch(track);
   }
 
-  updatePlaylistName(name){
-    this.setState({PlaylistName: name});
+  updatePlaylistName(name) {
+    this.setState({ PlaylistName: name });
   }
 
-  savePlaylist(){
-    const trackUrls = this.state.PlaylistTracks.map(track=>track.url);
-    Spotify.savePlaylist(this.state.PlaylistName, trackUrls).then(()=>{
+  savePlaylist() {
+    const trackUrls = this.state.PlaylistTracks.map(track => track.url);
+    Spotify.savePlaylist(this.state.PlaylistName, trackUrls).then(() => {
       this.setState({
         updatePlaylistName: "New Playlist",
         PlaylistTracks: []
@@ -72,23 +72,22 @@ class App extends React.Component {
     });
   }
 
-}
-
-function App() {
-  return (
-    <div>
-      <h1>
-        <a href='http://localhost:3000'>Musiclo</a>
-      </h1>
-    <div className="App">
-      <SearchBar onSearch = {this.search}/>
-    </div>
-    <div className='App-playlist'>
-      <SearchResult SearchResult = {this.SearchResult} onAdd = {this.doThese}/>
-      <Playlist PlaylistTracks = {this.PlaylistTracks} onNameChange = {this.updatePlaylistName} onRemove = {this.removeTrack} onSave = {this.savePlaylist}/>
-    </div>
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <h1>
+          <a href='http://localhost:3000'>Music-On</a>
+        </h1>
+        <div className="App">
+          <SearchBar onSearch={this.search} />
+        </div>
+        <div className='App-playlist'>
+          <SearchResult SearchResult={this.SearchResult} onAdd={this.doThese} />
+          <Playlist PlaylistTracks={this.PlaylistTracks} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} onSave={this.savePlaylist} />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
